@@ -1,0 +1,31 @@
+GroupId,GroupName,Type,IpProtocol,FromPort,ToPort,IpRanges,Ipv6Ranges,PrefixListIds,UserIdGroupPairs
+sg-0c69684ce6d3dee0d,vprofile-bckend-stag-SG,Inbound/Ingress,'-1,,,,,,sg-05486d51818b61bd5 (Allow tomcat to connect this node on all port)
+sg-0c69684ce6d3dee0d,vprofile-bckend-stag-SG,Inbound/Ingress,tcp,22,22,75.43.138.207/32,,,
+sg-0c69684ce6d3dee0d,vprofile-bckend-stag-SG,Outbound/Egress,'-1,,,0.0.0.0/0,,,
+sg-05486d51818b61bd5,vprofile-app-TC-staging-SG,Inbound/Ingress,tcp,8080,8080,0.0.0.0/0,,,
+sg-05486d51818b61bd5,vprofile-app-TC-staging-SG,Inbound/Ingress,tcp,8080,8080,,,,sg-090ef2b667d7882a8
+sg-05486d51818b61bd5,vprofile-app-TC-staging-SG,Inbound/Ingress,tcp,22,22,75.43.138.207/32,,,
+sg-05486d51818b61bd5,vprofile-app-TC-staging-SG,Inbound/Ingress,tcp,22,22,,,,sg-0a107b205e6e0f859 (Allow Ansible Running in Jenkins to connect this node)
+sg-05486d51818b61bd5,vprofile-app-TC-staging-SG,Outbound/Egress,'-1,,,0.0.0.0/0,,,
+sg-0b21765a2d2c24833,Sonarqube-Vprofile-SG,Inbound/Ingress,tcp,80,80,"75.43.138.207/32 (SonarRuns port 9000, but nginx install run on 80)",,,
+sg-0b21765a2d2c24833,Sonarqube-Vprofile-SG,Inbound/Ingress,tcp,80,80,,,,sg-0a107b205e6e0f859 (Allow Jenkins to upload reports)
+sg-0b21765a2d2c24833,Sonarqube-Vprofile-SG,Inbound/Ingress,tcp,9000,9000,0.0.0.0/0 (Allow Sonar Connection port),,,
+sg-0b21765a2d2c24833,Sonarqube-Vprofile-SG,Inbound/Ingress,'-1,,,,,,sg-0a107b205e6e0f859
+sg-0b21765a2d2c24833,Sonarqube-Vprofile-SG,Inbound/Ingress,tcp,22,22,75.43.138.207/32,,,
+sg-0b21765a2d2c24833,Sonarqube-Vprofile-SG,Outbound/Egress,'-1,,,0.0.0.0/0,,,
+sg-0a107b205e6e0f859,Jenkins-Vprofile-SG,Inbound/Ingress,tcp,8080,8080,75.43.138.207/32 (Jenkins Runs on Port 8080),,,
+sg-0a107b205e6e0f859,Jenkins-Vprofile-SG,Inbound/Ingress,'-1,,,,,,sg-0b21765a2d2c24833 (SG Custom Allow sonar to access Jenkins for Quality Gate Result )
+sg-0a107b205e6e0f859,Jenkins-Vprofile-SG,Inbound/Ingress,'-1,,,,,,sg-090ef2b667d7882a8 (Allow window server/slave to connect jenkins)
+sg-0a107b205e6e0f859,Jenkins-Vprofile-SG,Inbound/Ingress,'-1,,,,,,sg-0d5fbb733b7690801
+sg-0a107b205e6e0f859,Jenkins-Vprofile-SG,Inbound/Ingress,tcp,22,22,75.43.138.207/32 (Allow SSH to connect to Jenkins),,,
+sg-0a107b205e6e0f859,Jenkins-Vprofile-SG,Outbound/Egress,'-1,,,0.0.0.0/0,,,
+sg-03c3b410dc2bd6f72,default,Inbound/Ingress,'-1,,,,,,sg-03c3b410dc2bd6f72
+sg-03c3b410dc2bd6f72,default,Outbound/Egress,'-1,,,0.0.0.0/0,,,
+sg-090ef2b667d7882a8,Windows-Server-SoftTest,Inbound/Ingress,'-1,,,,,,sg-0a107b205e6e0f859 (All Traffic allow from Jenkin SG to connect windows srv)
+sg-090ef2b667d7882a8,Windows-Server-SoftTest,Inbound/Ingress,tcp,3389,3389,75.43.138.207/32,,,
+sg-090ef2b667d7882a8,Windows-Server-SoftTest,Outbound/Egress,'-1,,,0.0.0.0/0,,,
+sg-0d5fbb733b7690801,Nexus-Vprofile-SG,Inbound/Ingress,tcp,22,22,75.43.138.207/32,,,
+sg-0d5fbb733b7690801,Nexus-Vprofile-SG,Inbound/Ingress,tcp,8081,8081,75.43.138.207/32,,,
+sg-0d5fbb733b7690801,Nexus-Vprofile-SG,Inbound/Ingress,tcp,8081,8081,,,,sg-0a107b205e6e0f859 (Allow Jenkins SG so it can upload artifacts)
+sg-0d5fbb733b7690801,Nexus-Vprofile-SG,Inbound/Ingress,tcp,8081,8081,,,,sg-05486d51818b61bd5 (Allolw app server to download artifact.1)
+sg-0d5fbb733b7690801,Nexus-Vprofile-SG,Outbound/Egress,'-1,,,0.0.0.0/0,,,
